@@ -10,7 +10,7 @@ GPIO.setup(22,GPIO.OUT)
 GPIO.setup(23,GPIO.OUT)
 GPIO.setup(24,GPIO.OUT)
 
-# Get the curses window, turn off echoing of keyboard to screen, turn on
+# Get the curses window, turn off echoing of keyboard to screen, turn on. 
 # instant (no waiting) key response, and use special values for cursor keys
 screen = curses.initscr()
 curses.noecho() 
