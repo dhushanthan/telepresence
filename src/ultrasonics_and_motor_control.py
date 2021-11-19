@@ -10,6 +10,29 @@ GPIO.setup(22,GPIO.OUT)
 GPIO.setup(23,GPIO.OUT)
 GPIO.setup(24,GPIO.OUT)
 
+#ultrasonics
+TRIG = 21
+ECHO = 20
+GPIO.setmode(GPIO.BCM)
+
+def interrupt():
+    GPIO.setup(TRIG, GPIO.OUT)
+    GPIO.setup(ECHO, GPIO.IN)
+    GPIO.output(TRIG, False)
+    time.sleep(0.2)
+    GPIO.output(TRIG, True)
+    time.sleep(0.00001)
+    GPIO.output(TRIG, False)
+    while GPIO.input(ECHO) == 0:
+        pulse_start = time.time()
+    while GPIO.input(ECHO) == 1:
+        pulse_end = time.time()
+    pulse_duration = pulse_end-pulse_start
+    distance = pulse_duration*17150
+    distance = round(distance, 2)
+    return distance
+
+
 # Get the curses window, turn off echoing of keyboard to screen, turn on. 
 # instant (no waiting) key response, and use special values for cursor keys
 screen = curses.initscr()
@@ -19,8 +42,9 @@ screen.keypad(True)
 print("Controls: \n1. UP arrow - move forward\n2. DOWN arrow - move backward\n3. Right arrow - Turn right\n4. Left arrow - Turn left")
 
 try:
-        while True:   
-            char = screen.getch()
+    while True:   
+        char = screen.getch()
+        if interrupt >= 200:
             if char == ord('q'):
                 break
             elif char == curses.KEY_UP:
@@ -46,10 +70,10 @@ try:
             elif char == 10:
                 break
 
-            GPIO.output(24, False)
-            GPIO.output(22, False)
-            GPIO.output(23, False)
-            GPIO.output(17, False)
+        GPIO.output(24, False)
+        GPIO.output(22, False)
+        GPIO.output(23, False)
+        GPIO.output(17, False)
              
 finally:
     #Close down curses properly, inc turn echo back on!
@@ -58,25 +82,22 @@ finally:
     GPIO.cleanup()
 
 
-#ultrasonics
-TRIG=21
-ECHO=20
-GPIO.setmode(GPIO.BCM)
-while True:
-    print("distance measurement in progress")
-    GPIO.setup(TRIG,GPIO.OUT)
-    GPIO.setup(ECHO,GPIO.IN)
-    GPIO.output(TRIG,False)
-    print("waiting for sensor to settle")
-    time.sleep(0.2)
-    GPIO.output(TRIG,True)
-    time.sleep(0.00001)
-    GPIO.output(TRIG,False)
-    while GPIO.input(ECHO) == 0:
-        pulse_start = time.time()
-    while GPIO.input(ECHO)==1:
-        pulse_end=time.time()
-    pulse_duration = pulse_end-pulse_start
-    distance=pulse_duration*17150
-    distance=round(distance,2)
-    time.sleep(2)
+
+# while True:
+#     print("distance measurement in progress")
+#     GPIO.setup(TRIG,GPIO.OUT)
+#     GPIO.setup(ECHO,GPIO.IN)
+#     GPIO.output(TRIG,False)
+#     print("waiting for sensor to settle")
+#     time.sleep(0.2)
+#     GPIO.output(TRIG,True)
+#     time.sleep(0.00001)
+#     GPIO.output(TRIG,False)
+#     while GPIO.input(ECHO) == 0:
+#         pulse_start = time.time()
+#     while GPIO.input(ECHO)==1:
+#         pulse_end=time.time()
+#     pulse_duration = pulse_end-pulse_start
+#     distance=pulse_duration*17150
+#     distance=round(distance,2)
+#     time.sleep(2)
