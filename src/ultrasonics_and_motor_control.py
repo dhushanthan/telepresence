@@ -19,7 +19,7 @@ def interrupt():
     GPIO.setup(TRIG, GPIO.OUT)
     GPIO.setup(ECHO, GPIO.IN)
     GPIO.output(TRIG, False)
-    time.sleep(0.2)
+    time.sleep(0.002)
     GPIO.output(TRIG, True)
     time.sleep(0.00001)
     GPIO.output(TRIG, False)
@@ -44,36 +44,37 @@ print("Controls: \n1. UP arrow - move forward\n2. DOWN arrow - move backward\n3.
 try:
     while True:   
         char = screen.getch()
-        if interrupt >= 200:
-            if char == ord('q'):
-                break
-            elif char == curses.KEY_UP:
-                GPIO.output(24,False)
-                GPIO.output(23,True)
-                GPIO.output(22,False)
-                GPIO.output(17,True)
-            elif char == curses.KEY_DOWN:
-                GPIO.output(24,True)
-                GPIO.output(17,False)
-                GPIO.output(22,True)
-                GPIO.output(23,False)
-            elif char == curses.KEY_RIGHT:
-                GPIO.output(24,True)
-                GPIO.output(22,False)
-                GPIO.output(23,False)
-                GPIO.output(17,True)
-            elif char == curses.KEY_LEFT:
-                GPIO.output(24,False)
-                GPIO.output(22,True)
-                GPIO.output(23,True)
-                GPIO.output(17,False)
-            elif char == 10:
-                break
+        if interrupt() >= 50:
+	        if char == ord('q'):
+        	    break
+	        elif char == curses.KEY_UP:
+	            GPIO.output(24,True)
+	            GPIO.output(23,False)
+	            GPIO.output(22,True)
+	            GPIO.output(17,False)
+	        elif char == curses.KEY_DOWN:
+	            GPIO.output(24,False)
+	            GPIO.output(17,True)
+	            GPIO.output(22,False)
+	            GPIO.output(23,True)
+	        elif char == curses.KEY_RIGHT:
+	            GPIO.output(24,True)
+	            GPIO.output(22,False)
+	            GPIO.output(23,False)
+	            GPIO.output(17,True)
+	        elif char == curses.KEY_LEFT:
+	            GPIO.output(24,False)
+	            GPIO.output(22,True)
+	            GPIO.output(23,True)
+	            GPIO.output(17,False)
+	        elif char == 10:
+	            break
 
-        GPIO.output(24, False)
-        GPIO.output(22, False)
-        GPIO.output(23, False)
-        GPIO.output(17, False)
+		time.sleep(0.02)
+	        GPIO.output(24, False)
+	        GPIO.output(22, False)
+	        GPIO.output(23, False)
+	        GPIO.output(17, False)
              
 finally:
     #Close down curses properly, inc turn echo back on!
