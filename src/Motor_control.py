@@ -46,7 +46,8 @@ try:
         elif char == 10:
             break
 
-		time.sleep(0.02)
+		
+        time.sleep(0.02)
 	    GPIO.output(24, False)
 	    GPIO.output(22, False)
 	    GPIO.output(23, False)
