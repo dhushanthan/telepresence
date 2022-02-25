@@ -24,25 +24,25 @@ try:
         if char == ord('q'):
             break
         elif char == curses.KEY_UP:
-            GPIO.output(24,True)
-            GPIO.output(23,False)
-            GPIO.output(22,True)
-            GPIO.output(17,False)
+            GPIO.output(24,False)
+            GPIO.output(23,True)
+            GPIO.output(22,False)
+            GPIO.output(17,True)
         elif char == curses.KEY_DOWN:
-            GPIO.output(24,False)
-            GPIO.output(17,True)
-            GPIO.output(22,False)
-            GPIO.output(23,True)
-        elif char == curses.KEY_RIGHT:
             GPIO.output(24,True)
-            GPIO.output(22,False)
+            GPIO.output(17,False)
+            GPIO.output(22,True)
             GPIO.output(23,False)
-            GPIO.output(17,True)
-        elif char == curses.KEY_LEFT:
+        elif char == curses.KEY_RIGHT:
             GPIO.output(24,False)
             GPIO.output(22,True)
             GPIO.output(23,True)
             GPIO.output(17,False)
+        elif char == curses.KEY_LEFT:
+            GPIO.output(24,True)
+            GPIO.output(22,False)
+            GPIO.output(23,False)
+            GPIO.output(17,True)
         elif char == 10:
             break
 
