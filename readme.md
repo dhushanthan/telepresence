@@ -1,0 +1,2 @@
+# Telepresence
+>Telepresence is a simple system that allows you to interact with people inside an organization without having any physical contact. Telepresence can be used in a variety of applications. It can help people to interact with people as if they were physically connected.
