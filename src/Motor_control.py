@@ -1,7 +1,5 @@
 import curses
 import RPi.GPIO as GPIO
-import time
-import os
 
 #set GPIO numbering mode and define output pins
 GPIO.setmode(GPIO.BCM)
@@ -44,14 +42,12 @@ try:
             GPIO.output(23,False)
             GPIO.output(17,True)
         elif char == 10:
-            break
+            GPIO.output(24, False)
+            GPIO.output(23, False)
+            GPIO.output(22, False)
+            GPIO.output(17, False)
 
-		
-        time.sleep(0.02)
-	    GPIO.output(24, False)
-	    GPIO.output(22, False)
-	    GPIO.output(23, False)
-	    GPIO.output(17, False)
+        char = 10
              
 finally:
     #Close down curses properly, inc turn echo back on!
